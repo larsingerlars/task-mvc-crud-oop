@@ -1,3 +1,21 @@
+<?php
+
+use app\controllers\TaskController;
+use app\models\Task;
+use app\models\Database;
+
+require '../app/controllers/TaskController.php';
+require '../app/models/Task.php';
+require '../app/models/Database.php';
+
+$taskData['title'] = '';
+$taskData['details'] = '';
+
+$taskController = new TaskController();
+$taskController->createTask();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,15 +33,15 @@
       <h1 class="overview__title">Tasky</h1>
       <h3 class="overview__subtitle">Get your stuff done</h3>
     </header>
-    <form action="" method="POST" class="form--task">
+    <form action="" method="post" class="form--task" enctype="multipart/form-data">
       <div class="task">
 
         <label for="title" class="task__label">Title</label>
-        <input type="text" name="title" class="task__input" value="">
+        <input type="text" name="title" class="task__input" value="<?php echo $taskData['title'] ?>">
 
 
         <label for="details" class="task__label">Description</label>
-        <textarea name="details" class="task__textfield" cols="30" rows="10"></textarea>
+        <textarea name="details" class="task__textfield" cols="30" rows="10"><?php echo $taskData['details'] ?></textarea>
 
 
 
@@ -37,3 +55,8 @@
 </body>
 
 </html>
+
+<?php
+
+
+?>

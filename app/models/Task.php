@@ -1,13 +1,47 @@
 <?php
 
-namespace App\Models;
+namespace app\models;
+
+use app\models\Database;
 
 class Task
 {
-  public $id;
-  public $title;
-  public $details;
-  public $status;
+  public ?int $id = null;
+  public string $title;
+  public string $details;
+  // public $status; --> NOT YET IMPLEMENTED
+
+  // PREPARING DATABASE DATA
+  public function load($taskData)
+  {
+    $this->id = $taskData["id"] ?? null;
+    $this->title = $taskData["title"];
+    $this->details = $taskData["details"] ?? '';
+  }
+
+  public function save()
+  {
+    $errors = [];
+
+    // SIMPLE INPUT VALIDATION IF REQUIRED FIELDS ARE FILLED OUT
+    if (!$this->title) {
+      $errors[] = "Title name is required";
+    };
+
+    // IF INPUT VALIDATION SUCCESSFUL DATA GOES TO DATABASE
+    if (empty($errors)) {
+      $db = Database::$db;
+
+      // PUSH TO DATABASE EITHER AS UPDATED OR AS NEW ENTRY
+      if ($this->id) {
+        $db->db_updateTask($this);
+      } else {
+        $db->db_createTask($this);
+      }
+    }
+
+    return $errors;
+  }
 
   // GET METHODS
   public function getId()

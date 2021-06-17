@@ -1,7 +1,7 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use App\Controllers\TaskController;
+use app\controllers\TaskController;
 
 $entryPoint = new TaskController();
 $entryPoint->getTasks();
