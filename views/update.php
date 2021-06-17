@@ -8,7 +8,7 @@ require '../app/controllers/TaskController.php';
 require '../app/models/Task.php';
 require '../app/models/Database.php';
 
-if ($_POST['id']) {
+if (!empty($_POST['id'])) {
   if (!empty($_POST['action'])) {
     if ($_POST['action'] == 'delete') {
       $taskController = new TaskController();
