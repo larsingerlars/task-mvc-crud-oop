@@ -1,0 +1,18 @@
+## Dependency directory
+node_modules
+
+## Preprocessor directory
+scss
+
+## Gulp
+gulpfile.js
+
+## composer
+# vendor
+composer.lock
+
+## textfiles
+*.txt
+
+## .vscode
+.vscode
