@@ -19,11 +19,12 @@ class Task
     $this->details = $taskData["details"] ?? '';
   }
 
+  // INITIATE SAVING TO DB
   public function save()
   {
     $db = new Database();
 
-    // PUSH TO DATABASE EITHER AS UPDATED OR AS NEW ENTRY
+    // PUSH DATA TO DATABASE EITHER AS UPDATED OR AS NEW ENTRY
     if ($this->id) {
       $db->db_updateTask($this);
     } else {
@@ -31,59 +32,34 @@ class Task
     }
   }
 
-
-  // GET METHODS
-  public function getId()
-  {
-    return $this->id;
-  }
-
-  public function getTitle()
-  {
-    return $this->title;
-  }
-
-  public function getDetails()
-  {
-    return $this->details;
-  }
-
-  public function getStatus()
-  {
-    return $this->status;
-  }
-
-  // SET METHODS
-  public function setTitle(string $title)
-  {
-    $this->title = $title;
-  }
-
-  public function setDetails(string $details)
-  {
-    $this->details = $details;
-  }
-
-  public function setStatus(bool $status)
-  {
-    $this->status = $status;
-  }
-
-  // CRUD OPERATIONS
-  public function create(array $data)
-  {
-  }
-
+  // RETRIEVE DATA
   public function read(int $id)
   {
     $id = $_GET['id'] ?? null;
+    if ($id) {
+      $db = new Database();
+
+      // GET DATA FROM DATABASE
+      $data = $db->fetchDataById((int)$id);
+      if (!empty($data)) {
+        $this->id = $id;
+        $this->title = $data['title'];
+        $this->details = $data['details'];
+        $this->status = $data['status'];
+        $this->create_date = $data['create_date'];
+
+        return $this;
+      }
+    }
+    return false;
   }
 
-  public function update(int $id, array $data)
-  {
-  }
-
+  // DELETE TASK
   public function delete(int $id)
   {
+    if ($id) {
+      $db = new Database();
+      $db->db_deleteTask((int) $id);
+    }
   }
 }

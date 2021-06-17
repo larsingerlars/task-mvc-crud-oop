@@ -18,10 +18,10 @@ class TaskController
 
   public function getTaskbyId(int $id)
   {
-    $task = new Task();
-    $task->read($id);
+    $taskData = new Task();
+    $task = $taskData->read($id);
 
-    require_once '../views/update.php';
+    return $task;
   }
 
   public function createTask()
@@ -52,14 +52,12 @@ class TaskController
       exit;
     }
 
-    $taskData = $this->getTaskbyId($id);
+    $task = $this->getTaskbyId($id);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $taskData['title'] = $_POST['title'];
-      $taskData['details'] = $_POST['details'];
+      $task->title = $_POST['title'];
+      $task->details = $_POST['details'];
 
-      $task = new Task();
-      $task->load($taskData);
       $task->save();
 
       header('Location: ../public/index.php');
@@ -67,18 +65,12 @@ class TaskController
     }
   }
 
-  public function test()
+  public function deleteTask(int $id)
   {
-    $taskData = [
-      'title' => '',
-      'details' => '',
-    ];
+    $task = new Task();
+    $task->delete($id);
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $taskData['title'] = $_POST['title'];
-      $taskData['details'] = $_POST['details'];
-    }
-
-    echo $taskData['title'];
+    header('Location: ../public/index.php');
+    exit;
   }
 }

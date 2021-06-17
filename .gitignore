@@ -1,10 +1,10 @@
-## Dependency directory
+## dependencies
 node_modules
 
-## Preprocessor directory
+## preprocessor directory
 scss
 
-## Gulp
+## gulp
 gulpfile.js
 
 ## composer
@@ -16,3 +16,6 @@ composer.lock
 
 ## .vscode
 .vscode
+
+## testing
+TestController.php

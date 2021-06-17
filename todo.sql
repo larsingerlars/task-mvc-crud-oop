@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Datenbank: `todo`
 --
 
+CREATE DATABASE IF NOT EXISTS `todo`;
+USE `todo`;
+
 -- --------------------------------------------------------
 
 --
@@ -30,12 +33,13 @@ SET time_zone = "+00:00";
 -- Zuletzt aktualisiert: 17. Jun 2021 um 06:00
 --
 
-CREATE TABLE `tasks` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(1) NOT NULL,
-  `create_date` datetime NOT NULL
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `create_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -50,25 +54,6 @@ INSERT INTO `tasks` (`id`, `title`, `details`, `status`, `create_date`) VALUES
 (5, 'Something important', 'Don\'t forget!', 0, '2021-06-16 23:59:21'),
 (6, 'Even more important!', 'Call Ann.', 0, '2021-06-16 23:59:21');
 
---
--- Indizes der exportierten Tabellen
---
-
---
--- Indizes für die Tabelle `tasks`
---
-ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT für exportierte Tabellen
---
-
---
--- AUTO_INCREMENT für Tabelle `tasks`
---
-ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

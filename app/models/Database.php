@@ -29,7 +29,7 @@ class Database
 
   public function fetchDataById($id)
   {
-    $statement = $this->pdo->prepare('SELECT * FROM products WHERE id = :id');
+    $statement = $this->pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
     $statement->bindValue(':id', $id);
     $statement->execute();
 
@@ -37,16 +37,32 @@ class Database
   }
 
   // UPDATE DB
-  public function db_updateTask()
+  public function db_updateTask(Task $task)
   {
+    $statement = $this->pdo->prepare('UPDATE tasks SET title = :title, details = :details WHERE id = :id LIMIT 1');
+    $statement->bindValue(':id', $task->id);
+    $statement->bindValue(':title', $task->title);
+    $statement->bindValue(':details', $task->details);
+
+    $statement->execute();
   }
 
+  // CREATE NEW DB ENTRY
   public function db_createTask(Task $task)
   {
     $statement = $this->pdo->prepare('INSERT INTO tasks (title, details, create_date) VALUES ( :title, :details, :date)');
     $statement->bindValue(':title', $task->title);
     $statement->bindValue(':details', $task->details);
     $statement->bindValue(':date', date('Y-m-d H:i:s'));
+
+    $statement->execute();
+  }
+
+  // DELETE ENTRY FROM DB
+  public function db_deleteTask(int $id)
+  {
+    $statement = $this->pdo->prepare('DELETE FROM tasks WHERE id = :id LIMIT 1');
+    $statement->bindValue(':id', $id);
 
     $statement->execute();
   }
