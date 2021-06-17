@@ -8,7 +8,6 @@ require '../app/controllers/TaskController.php';
 require '../app/models/Task.php';
 require '../app/models/Database.php';
 
-// POST IS ONLY CALLED ON DELETE
 if ($_POST['id']) {
   if (!empty($_POST['action'])) {
     if ($_POST['action'] == 'delete') {

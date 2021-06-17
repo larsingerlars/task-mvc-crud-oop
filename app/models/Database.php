@@ -12,7 +12,7 @@ class Database
 
   public function __construct()
   {
-    // SETUP DB CONNECTION + ERROR HANDLING
+    // SETUP DB CONNECTION + ERROR HANDLING/DEBUGGING
     $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=todo', 'root', '');
     $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     self::$db = $this;

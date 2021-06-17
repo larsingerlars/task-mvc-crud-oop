@@ -10,14 +10,15 @@ class TaskController
 
   public function getTasks()
   {
+    // RETRIEVE ALL DATA ENTRIES
     $taskData = new Database();
     $tasks = $taskData->fetchData();
-
     include '../views/index.php';
   }
 
   public function getTaskbyId(int $id)
   {
+    // RETRIEVE DATA ENTRY BY ID
     $taskData = new Task();
     $task = $taskData->read($id);
 

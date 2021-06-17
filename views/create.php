@@ -62,8 +62,3 @@ $taskController->createTask();
 </body>
 
 </html>
-
-<?php
-
-
-?>
