@@ -21,27 +21,16 @@ class Task
 
   public function save()
   {
-    $errors = [];
+    $db = new Database();
 
-    // SIMPLE INPUT VALIDATION IF REQUIRED FIELDS ARE FILLED OUT
-    if (!$this->title) {
-      $errors[] = "Title name is required";
-    };
-
-    // IF INPUT VALIDATION SUCCESSFUL DATA GOES TO DATABASE
-    if (empty($errors)) {
-      $db = Database::$db;
-
-      // PUSH TO DATABASE EITHER AS UPDATED OR AS NEW ENTRY
-      if ($this->id) {
-        $db->db_updateTask($this);
-      } else {
-        $db->db_createTask($this);
-      }
+    // PUSH TO DATABASE EITHER AS UPDATED OR AS NEW ENTRY
+    if ($this->id) {
+      $db->db_updateTask($this);
+    } else {
+      $db->db_createTask($this);
     }
-
-    return $errors;
   }
+
 
   // GET METHODS
   public function getId()

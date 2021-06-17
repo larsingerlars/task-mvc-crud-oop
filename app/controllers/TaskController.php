@@ -37,13 +37,33 @@ class TaskController
 
       $task = new Task();
       $task->load($taskData);
-      var_dump($this);
-      isset($this);
-      $errors = $task->save($taskData);
-      if (empty($errors)) {
-        header('Location: /public/index.php');
-        exit;
-      }
+      $task->save($taskData);
+
+      header('Location: ../public/index.php');
+      exit;
+    }
+  }
+
+  public function updateTask()
+  {
+    $id = $_GET['id'] ?? null;
+    if (!$id) {
+      header('Location: ../public/index');
+      exit;
+    }
+
+    $taskData = $this->getTaskbyId($id);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $taskData['title'] = $_POST['title'];
+      $taskData['details'] = $_POST['details'];
+
+      $task = new Task();
+      $task->load($taskData);
+      $task->save();
+
+      header('Location: ../public/index.php');
+      exit;
     }
   }
 

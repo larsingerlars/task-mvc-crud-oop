@@ -27,6 +27,15 @@ class Database
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function fetchDataById($id)
+  {
+    $statement = $this->pdo->prepare('SELECT * FROM products WHERE id = :id');
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_ASSOC);
+  }
+
   // UPDATE DB
   public function db_updateTask()
   {
